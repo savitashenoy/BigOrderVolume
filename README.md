@@ -1,39 +1,33 @@
-# Big Order Scanner - Vercel Deployable Flask App
+# Big Order Scanner - Vercel Package
 
-A Flask + yfinance scanner for NSE ticker CSV/XLSX uploads.
+This package is designed for Vercel deployment.
 
-## Features
+## What changed in this fixed package
 
-- CSV/XLSX/XLS ticker upload
-- Start, Stop, and Clear scan controls
-- Progress bar with completed ticker-timeframe checks
-- Results table with filters
-- Ticker search
-- TF, Side, Size, Ticker Color, Score, and RelVol20 filters
-- TradingView hyperlinks in the ticker column
-- CSV result download
-- Vercel serverless-compatible runtime directories using `/tmp`
+- CSS and JavaScript are embedded directly in `templates/index.html` so the UI does not become bare-bones if `/static` files are not served by Vercel.
+- The app uses Vercel-friendly scanning:
+  - Upload file is parsed by `/parse_tickers`.
+  - The browser scans one ticker-timeframe at a time through `/scan_one`.
+  - Progress bar updates in the browser after every completed request.
+  - Stop and Clear work client-side without relying on background server threads.
+- Results are built in the browser and exported as CSV from the browser.
 
-## Local Run
+## Deploy on Vercel
+
+1. Upload this folder to GitHub.
+2. Import the GitHub repo into Vercel.
+3. Keep the project root as this folder.
+4. Deploy.
+
+## Local run
 
 ```bash
 pip install -r requirements.txt
 python app.py
 ```
 
-Open:
+Open: `http://127.0.0.1:5000`
 
-```text
-http://127.0.0.1:5000
-```
+## Note
 
-## Deploy to Vercel
-
-1. Upload this folder to GitHub.
-2. Import the repository in Vercel.
-3. Use the default Vercel settings.
-4. Vercel will use `vercel.json` and `requirements.txt` automatically.
-
-## Notes for Vercel
-
-This app is packaged for Vercel, but scans using yfinance can be slow for large watchlists. Vercel serverless functions have execution time limits, so keep ticker files smaller or deploy on Render/Railway for long scans.
+For very large watchlists, Vercel can still be slower or rate-limited because yfinance requests run through serverless functions. Render/Railway is better for large scans, but this package avoids the CSS/JS/static-file issue and avoids Vercel background-thread limitations.

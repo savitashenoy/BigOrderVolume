@@ -4,18 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Big Order Scanner</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    :root{--bg:#0f172a;--panel:#111c33;--panel2:#17223b;--line:#263650;--text:#e5e7eb;--muted:#9ca3af;--accent:#38bdf8;--good:#22c55e;--bad:#ef4444;--warn:#f59e0b;--orange:#FFA500;--purple:#db3dd6;--yellow:#FDE37C}*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at top left,#1e3a5f,var(--bg) 42%);color:var(--text);min-height:100vh}.page{max-width:1280px;margin:0 auto;padding:26px}.hero{display:flex;justify-content:space-between;align-items:center;gap:18px;margin-bottom:18px}h1{margin:0;font-size:32px;letter-spacing:-.03em}h2{margin:0 0 8px;font-size:18px}.card{background:rgba(17,28,51,.94);border:1px solid var(--line);border-radius:18px;padding:20px;margin-bottom:18px;box-shadow:0 20px 40px rgba(0,0,0,.24)}.upload-form{display:flex;flex-wrap:wrap;align-items:center;gap:14px}.file-label{font-weight:800}input[type=file]{border:1px dashed var(--line);border-radius:12px;padding:12px;min-width:320px;color:var(--text);background:var(--panel2)}button,.download{border:0;background:linear-gradient(135deg,var(--accent),#2563eb);color:white;padding:12px 18px;border-radius:12px;font-weight:900;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;min-height:42px}button:disabled,.download.disabled{opacity:.45;pointer-events:none}.secondary-btn{background:transparent;border:1px solid var(--line);color:var(--text)}.secondary-btn:hover{border-color:var(--accent);color:var(--accent)}.danger-btn{background:linear-gradient(135deg,#ef4444,#991b1b)}.scan-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.progress-header,.results-header{display:flex;justify-content:space-between;align-items:center;gap:20px}.count-box{text-align:right;background:var(--panel2);border:1px solid var(--line);padding:10px 14px;border-radius:14px}.count-box span{display:block;font-size:20px;font-weight:900}.count-box small{color:var(--muted)}p{color:var(--muted);margin:8px 0 0}.progress-shell{height:16px;background:#0b1220;border:1px solid var(--line);border-radius:999px;overflow:hidden;margin:18px 0 0}.progress-bar{width:0%;height:100%;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .28s ease}.filters-panel{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin:16px 0;padding:14px;border:1px solid var(--line);border-radius:14px;background:rgba(23,34,59,.72)}.filter-field{flex:1 1 150px;min-width:145px}.ticker-filter{flex:2 1 230px;min-width:220px}.numeric-filter{flex:1 1 155px}.color-filter{flex:1.4 1 210px;min-width:205px}.filter-field label{display:block;color:var(--muted);font-size:12px;margin-bottom:6px;font-weight:800}.filter-field select,.filter-field input{width:100%;border:1px solid var(--line);background:#0b1220;color:var(--text);border-radius:10px;padding:10px 11px;outline:none}.filter-field select:focus,.filter-field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(56,189,248,.14)}#clearFiltersBtn{flex:0 0 auto;min-width:130px}.filter-summary{margin-top:4px;font-size:13px}.filter-summary.warning{color:var(--warn)}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:11px 12px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}th{position:sticky;top:0;background:#0d1729;color:#cbd5e1;z-index:1}tr:hover td{background:rgba(56,189,248,.06)}.empty{text-align:center;color:var(--muted);padding:30px}.side{font-weight:900}.side.long{color:var(--good)}.side.short{color:var(--bad)}.ticker-name{font-weight:900;letter-spacing:.01em;text-decoration:none}.ticker-name:hover{text-decoration:underline}.ticker-all-tf{color:var(--orange)}.ticker-three-tf{color:var(--purple)}.ticker-two-tf{color:var(--yellow)}.ticker-legend{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:rgba(23,34,59,.72);color:var(--muted);font-size:13px}.legend-title{color:var(--text);font-weight:900}.legend-dot{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:6px;vertical-align:-1px}.all-tf-dot{background:var(--orange)}.three-tf-dot{background:var(--purple)}.two-tf-dot{background:var(--yellow)}.warning-box{display:none;margin-top:10px;padding:12px 14px;border:1px solid rgba(245,158,11,.45);background:rgba(245,158,11,.1);border-radius:12px;color:#fbbf24;font-size:13px}@media(max-width:820px){.page{padding:16px}.hero,.progress-header,.results-header{align-items:flex-start;flex-direction:column}input[type=file]{min-width:100%;width:100%}.scan-actions{width:100%}.scan-actions button{flex:1 1 100%}.filter-field,.ticker-filter,.numeric-filter,.color-filter,#clearFiltersBtn{flex-basis:100%;min-width:100%}.ticker-legend{flex-direction:column;align-items:flex-start;gap:8px}}
+  </style>
 </head>
 <body>
   <main class="page">
-    <header class="hero">
-      <div>
-        <h1>Big Order Scanner</h1>
-      </div>
-    </header>
+    <header class="hero"><h1>Big Order Scanner</h1></header>
 
-    <section class="card upload-card">
-      <form id="scanForm">
+    <section class="card">
+      <form id="scanForm" class="upload-form">
         <label class="file-label" for="tickerFile">Ticker file</label>
         <input id="tickerFile" name="ticker_file" type="file" accept=".csv,.xlsx,.xls" required>
         <div class="scan-actions">
@@ -24,6 +22,7 @@
           <button id="clearResultsBtn" type="button" class="secondary-btn">Clear</button>
         </div>
       </form>
+      <div id="warningBox" class="warning-box"></div>
     </section>
 
     <section class="card progress-card">
@@ -37,9 +36,7 @@
           <small>ticker-timeframe checks</small>
         </div>
       </div>
-      <div class="progress-shell">
-        <div id="progressBar" class="progress-bar"></div>
-      </div>
+      <div class="progress-shell"><div id="progressBar" class="progress-bar"></div></div>
     </section>
 
     <section class="card results-card">
@@ -48,92 +45,65 @@
           <h2>Results</h2>
           <p id="filterSummary" class="filter-summary">Filters apply after scan completes.</p>
         </div>
-        <a id="downloadLink" class="download disabled" href="#">Download CSV</a>
+        <a id="downloadLink" class="download disabled" href="#" download="big_order_scan_results.csv">Download CSV</a>
       </div>
 
       <div class="filters-panel" aria-label="Results filters">
-        <div class="filter-field ticker-filter">
-          <label for="tickerFilter">Ticker Search</label>
-          <input id="tickerFilter" type="text" placeholder="Search ticker, e.g. RELIANCE">
-        </div>
-        <div class="filter-field">
-          <label for="tfFilter">TF</label>
-          <select id="tfFilter">
-            <option value="">All</option>
-            <option value="15min">15min</option>
-            <option value="30min">30min</option>
-            <option value="60min">60min</option>
-            <option value="1day">1D</option>
-          </select>
-        </div>
-        <div class="filter-field">
-          <label for="sideFilter">Side</label>
-          <select id="sideFilter">
-            <option value="">All</option>
-            <option value="Long">Long</option>
-            <option value="Short">Short</option>
-          </select>
-        </div>
-        <div class="filter-field">
-          <label for="sizeFilter">Size</label>
-          <select id="sizeFilter">
-            <option value="">All</option>
-            <option value="Large">Large</option>
-            <option value="Medium">Medium</option>
-          </select>
-        </div>
-
-        <div class="filter-field color-filter">
-          <label for="tickerColorFilter">Ticker Color</label>
-          <select id="tickerColorFilter">
-            <option value="">All Colors</option>
-            <option value="all">AllTF #FFA500</option>
-            <option value="three">AnyThreeTF #db3dd6</option>
-            <option value="two">AnyTwoTF #FDE37C</option>
-          </select>
-        </div>
-        <div class="filter-field numeric-filter">
-          <label for="scoreFilter">Score</label>
-          <input id="scoreFilter" type="text" placeholder=">=70, > 80, <50">
-        </div>
-        <div class="filter-field numeric-filter">
-          <label for="relVolFilter">RelVol20</label>
-          <input id="relVolFilter" type="text" placeholder=">=2, > 3, <=1.5">
-        </div>
+        <div class="filter-field ticker-filter"><label for="tickerFilter">Ticker Search</label><input id="tickerFilter" type="text" placeholder="Search ticker, e.g. RELIANCE"></div>
+        <div class="filter-field"><label for="tfFilter">TF</label><select id="tfFilter"><option value="">All</option><option value="15min">15min</option><option value="30min">30min</option><option value="60min">60min</option><option value="1day">1D</option></select></div>
+        <div class="filter-field"><label for="sideFilter">Side</label><select id="sideFilter"><option value="">All</option><option value="Long">Long</option><option value="Short">Short</option></select></div>
+        <div class="filter-field"><label for="sizeFilter">Size</label><select id="sizeFilter"><option value="">All</option><option value="Large">Large</option><option value="Medium">Medium</option></select></div>
+        <div class="filter-field color-filter"><label for="tickerColorFilter">Ticker Color</label><select id="tickerColorFilter"><option value="">All Colors</option><option value="all">AllTF #FFA500</option><option value="three">AnyThreeTF #db3dd6</option><option value="two">AnyTwoTF #FDE37C</option></select></div>
+        <div class="filter-field numeric-filter"><label for="scoreFilter">Score</label><input id="scoreFilter" type="text" placeholder=">=70, > 80, <50"></div>
+        <div class="filter-field numeric-filter"><label for="relVolFilter">RelVol20</label><input id="relVolFilter" type="text" placeholder=">=2, > 3, <=1.5"></div>
         <button id="clearFiltersBtn" type="button" class="secondary-btn">Clear Filters</button>
       </div>
 
       <div class="table-wrap">
         <table id="resultsTable">
-          <thead>
-            <tr>
-              <th>Ticker</th>
-              <th>TF</th>
-              <th>Side</th>
-              <th>Size</th>
-              <th>Score</th>
-              <th>Percentile</th>
-              <th>RelVol20</th>
-              <th>Price</th>
-              <th>Volume</th>
-              <th>Time Since</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td colspan="10" class="empty">No results yet.</td></tr>
-          </tbody>
+          <thead><tr><th>Ticker</th><th>TF</th><th>Side</th><th>Size</th><th>Score</th><th>Percentile</th><th>RelVol20</th><th>Price</th><th>Volume</th><th>Time Since</th></tr></thead>
+          <tbody><tr><td colspan="10" class="empty">No results yet.</td></tr></tbody>
         </table>
       </div>
 
       <div class="ticker-legend" aria-label="Ticker color legend">
         <span class="legend-title">Ticker color legend:</span>
-        <span><i class="legend-dot all-tf"></i> Appears on all TF</span>
-        <span><i class="legend-dot three-tf"></i> Appears on any 3 different TF</span>
-        <span><i class="legend-dot two-tf"></i> Appears on any 2 different TF</span>
+        <span><i class="legend-dot all-tf-dot"></i> Appears on all TF</span>
+        <span><i class="legend-dot three-tf-dot"></i> Appears on any 3 different TF</span>
+        <span><i class="legend-dot two-tf-dot"></i> Appears on any 2 different TF</span>
       </div>
     </section>
   </main>
 
-  <script src="{{ url_for('static', filename='app.js') }}"></script>
+  <script>
+    const form=document.getElementById('scanForm'),startBtn=document.getElementById('startBtn'),stopBtn=document.getElementById('stopBtn'),clearResultsBtn=document.getElementById('clearResultsBtn'),statusText=document.getElementById('statusText'),progressBar=document.getElementById('progressBar'),progressCount=document.getElementById('progressCount'),resultsBody=document.querySelector('#resultsTable tbody'),downloadLink=document.getElementById('downloadLink'),filterSummary=document.getElementById('filterSummary'),warningBox=document.getElementById('warningBox'),tickerFilter=document.getElementById('tickerFilter'),tfFilter=document.getElementById('tfFilter'),sideFilter=document.getElementById('sideFilter'),sizeFilter=document.getElementById('sizeFilter'),tickerColorFilter=document.getElementById('tickerColorFilter'),scoreFilter=document.getElementById('scoreFilter'),relVolFilter=document.getElementById('relVolFilter'),clearFiltersBtn=document.getElementById('clearFiltersBtn');
+    let allResults=[],tickerTfMap=new Map(),stopRequested=false,isScanning=false;
+
+    form.addEventListener('submit',async(e)=>{e.preventDefault();const fileInput=document.getElementById('tickerFile');if(!fileInput.files.length)return;resetUI(false);isScanning=true;stopRequested=false;startBtn.disabled=true;stopBtn.disabled=false;startBtn.textContent='Scanning...';statusText.textContent='Reading ticker file...';const payload=new FormData();payload.append('ticker_file',fileInput.files[0]);try{const res=await fetch('/parse_tickers',{method:'POST',body:payload});const data=await res.json();if(!res.ok)throw new Error(data.error||'Unable to read ticker file.');await runClientScan(data.tickers,data.timeframes||['15min','30min','60min','1day']);}catch(err){statusText.textContent=err.message;showWarning(err.message);}finally{isScanning=false;startBtn.disabled=false;startBtn.textContent='Start Scan';stopBtn.disabled=true;updateDownloadLink();}});
+
+    async function runClientScan(tickers,timeframes){const total=tickers.length*timeframes.length;let completed=0;updateProgress(0,total);statusText.textContent=`Loaded ${tickers.length} tickers. Starting scan...`;for(const ticker of tickers){for(const timeframe of timeframes){if(stopRequested){statusText.textContent=`Scan stopped. ${allResults.length} signals found before stop.`;return;}statusText.textContent=`Scanning ${ticker} @ ${displayTimeframe(timeframe)} ...`;try{const res=await fetch('/scan_one',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({ticker,timeframe})});const data=await res.json();if(data.warning)showWarning(`${ticker} ${displayTimeframe(timeframe)}: ${data.warning}`);if(Array.isArray(data.results)&&data.results.length){allResults.push(...data.results);allResults.sort((a,b)=>(Number(b.CompositeScore)||0)-(Number(a.CompositeScore)||0)||(Number(b.Percentile)||0)-(Number(a.Percentile)||0));tickerTfMap=buildTickerTimeframeMap(allResults);applyFiltersAndRender();}}catch(err){showWarning(`${ticker} ${displayTimeframe(timeframe)} failed: ${err.message}`);}completed++;updateProgress(completed,total);}}
+      statusText.textContent=`Scan completed. ${allResults.length} signals found.`;applyFiltersAndRender();}
+
+    stopBtn.addEventListener('click',()=>{stopRequested=true;stopBtn.disabled=true;statusText.textContent='Stopping scan after the active request finishes...';});
+    clearResultsBtn.addEventListener('click',()=>{stopRequested=true;resetUI(true);});
+    [tickerFilter,tfFilter,sideFilter,sizeFilter,tickerColorFilter,scoreFilter,relVolFilter].forEach(el=>{el.addEventListener('input',applyFiltersAndRender);el.addEventListener('change',applyFiltersAndRender);});
+    clearFiltersBtn.addEventListener('click',()=>{tickerFilter.value='';tfFilter.value='';sideFilter.value='';sizeFilter.value='';tickerColorFilter.value='';scoreFilter.value='';relVolFilter.value='';applyFiltersAndRender();});
+
+    function updateProgress(completed,total){const pct=total>0?Math.round(completed/total*100):0;progressBar.style.width=`${pct}%`;progressCount.textContent=`${completed} / ${total}`;}
+    function resetUI(clearFile){allResults=[];tickerTfMap=new Map();stopRequested=false;updateProgress(0,0);statusText.textContent='Waiting for file upload.';filterSummary.textContent='Filters apply after scan completes.';filterSummary.classList.remove('warning');resultsBody.innerHTML='<tr><td colspan="10" class="empty">No results yet.</td></tr>';downloadLink.href='#';downloadLink.classList.add('disabled');warningBox.style.display='none';warningBox.textContent='';if(clearFile)document.getElementById('tickerFile').value='';startBtn.disabled=false;startBtn.textContent='Start Scan';stopBtn.disabled=true;}
+    function showWarning(message){warningBox.style.display='block';warningBox.textContent=message;}
+    function applyFiltersAndRender(){const filters={ticker:tickerFilter.value.trim().toUpperCase(),timeframe:tfFilter.value,side:sideFilter.value,size:sizeFilter.value,tickerColor:tickerColorFilter.value,score:parseNumericFilter(scoreFilter.value),relVol:parseNumericFilter(relVolFilter.value)};const filtered=allResults.filter(row=>{if(filters.ticker&&!String(row.Ticker||'').toUpperCase().includes(filters.ticker))return false;if(filters.timeframe&&row.Timeframe!==filters.timeframe)return false;if(filters.side&&row.Side!==filters.side)return false;if(filters.size&&row.Size!==filters.size)return false;if(filters.tickerColor&&getTickerColorGroup(row.Ticker)!==filters.tickerColor)return false;if(filters.score&&!compareNumber(Number(row.CompositeScore),filters.score.operator,filters.score.value))return false;if(filters.relVol&&!compareNumber(Number(row.RelVolume20),filters.relVol.operator,filters.relVol.value))return false;return true;});renderResults(filtered);updateFilterSummary(filtered.length,allResults.length,filters);updateDownloadLink();}
+    function parseNumericFilter(raw){const text=String(raw||'').trim();if(!text)return null;const match=text.match(/^(>=|<=|>|<|=)\s*(-?\d+(?:\.\d+)?)$/);return match?{operator:match[1],value:Number(match[2])}:null;}
+    function compareNumber(actual,op,expected){if(!Number.isFinite(actual)||!Number.isFinite(expected))return false;switch(op){case'>':return actual>expected;case'>=':return actual>=expected;case'<':return actual<expected;case'<=':return actual<=expected;case'=':return actual===expected;default:return true;}}
+    function updateFilterSummary(filtered,total,filters){const invalid=[];if(scoreFilter.value.trim()&&!filters.score)invalid.push('Score');if(relVolFilter.value.trim()&&!filters.relVol)invalid.push('RelVol20');if(invalid.length){filterSummary.textContent=`Invalid filter format for ${invalid.join(', ')}. Use >, >=, <, <=, or = followed by a number.`;filterSummary.classList.add('warning');return;}filterSummary.classList.remove('warning');filterSummary.textContent=total?`Showing ${filtered} of ${total} signals.`:(isScanning?'Scanning. Signals will appear as found.':'No scan results available yet.');}
+    function buildTickerTimeframeMap(rows){const map=new Map();rows.forEach(row=>{const ticker=String(row.Ticker||''),tf=String(row.Timeframe||'');if(!ticker||!tf)return;if(!map.has(ticker))map.set(ticker,new Set());map.get(ticker).add(tf);});return map;}
+    function getTickerHighlightClass(ticker){const n=tickerTfMap.get(String(ticker||''))?.size||0;if(n>=4)return'ticker-all-tf';if(n===3)return'ticker-three-tf';if(n===2)return'ticker-two-tf';return'';}
+    function getTickerColorGroup(ticker){const n=tickerTfMap.get(String(ticker||''))?.size||0;if(n>=4)return'all';if(n===3)return'three';if(n===2)return'two';return'';}
+    function renderResults(rows){if(!rows.length){resultsBody.innerHTML='<tr><td colspan="10" class="empty">No matching signals found.</td></tr>';return;}resultsBody.innerHTML=rows.map(row=>`<tr><td><a class="ticker-name ${getTickerHighlightClass(row.Ticker)}" href="${tradingViewUrl(row.Ticker)}" target="_blank" rel="noopener noreferrer">${escapeHtml(row.Ticker)}</a></td><td>${escapeHtml(displayTimeframe(row.Timeframe))}</td><td><span class="side ${row.Side==='Long'?'long':row.Side==='Short'?'short':''}">${escapeHtml(row.Side)}</span></td><td>${escapeHtml(row.Size)}</td><td>${formatNumber(row.CompositeScore)}</td><td>${formatNumber(row.Percentile)}</td><td>${formatNumber(row.RelVolume20)}</td><td>${formatNumber(row.Price)}</td><td>${formatInt(row.Volume)}</td><td>${escapeHtml(row.TimeSince)}</td></tr>`).join('');}
+    function updateDownloadLink(){if(!allResults.length){downloadLink.href='#';downloadLink.classList.add('disabled');return;}const csv=toCsv(allResults);const blob=new Blob([csv],{type:'text/csv;charset=utf-8;'});if(downloadLink.dataset.url)URL.revokeObjectURL(downloadLink.dataset.url);const url=URL.createObjectURL(blob);downloadLink.dataset.url=url;downloadLink.href=url;downloadLink.classList.remove('disabled');}
+    function toCsv(rows){const cols=['Ticker','Timeframe','Side','Size','CompositeScore','Percentile','RelVolume20','Price','Volume','TimeSince','DollarVolume','AvgVolume20','AvgDollarVolume20','RelDollarVolume20','BarTime','BarsAgo'];const esc=v=>`"${String(v??'').replaceAll('"','""')}"`;return [cols.join(','),...rows.map(r=>cols.map(c=>esc(r[c])).join(','))].join('\n');}
+    function tradingViewUrl(ticker){const symbol=String(ticker||'').replace(/\.NS$/i,'');return `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}&interval=60`;}
+    function displayTimeframe(v){return v==='1day'?'1D':v;}function formatNumber(v){const n=Number(v);return Number.isFinite(n)?n.toFixed(2):'';}function formatInt(v){const n=Number(v);return Number.isFinite(n)?n.toLocaleString('en-IN'):'';}function escapeHtml(v){return String(v??'').replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#039;');}
+  </script>
 </body>
 </html>
