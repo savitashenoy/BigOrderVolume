@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Big Order Scanner</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <main class="page">
+    <header class="hero">
+      <div>
+        <h1>Big Order Scanner</h1>
+      </div>
+    </header>
+
+    <section class="card upload-card">
+      <form id="scanForm">
+        <label class="file-label" for="tickerFile">Ticker file</label>
+        <input id="tickerFile" name="ticker_file" type="file" accept=".csv,.xlsx,.xls" required>
+        <div class="scan-actions">
+          <button id="startBtn" type="submit">Start Scan</button>
+          <button id="stopBtn" type="button" class="danger-btn" disabled>Stop</button>
+          <button id="clearResultsBtn" type="button" class="secondary-btn">Clear</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="card progress-card">
+      <div class="progress-header">
+        <div>
+          <h2>Scan Progress</h2>
+          <p id="statusText">Waiting for file upload.</p>
+        </div>
+        <div class="count-box">
+          <span id="progressCount">0 / 0</span>
+          <small>ticker-timeframe checks</small>
+        </div>
+      </div>
+      <div class="progress-shell">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+    </section>
+
+    <section class="card results-card">
+      <div class="results-header">
+        <div>
+          <h2>Results</h2>
+          <p id="filterSummary" class="filter-summary">Filters apply after scan completes.</p>
+        </div>
+        <a id="downloadLink" class="download disabled" href="#">Download CSV</a>
+      </div>
+
+      <div class="filters-panel" aria-label="Results filters">
+        <div class="filter-field ticker-filter">
+          <label for="tickerFilter">Ticker Search</label>
+          <input id="tickerFilter" type="text" placeholder="Search ticker, e.g. RELIANCE">
+        </div>
+        <div class="filter-field">
+          <label for="tfFilter">TF</label>
+          <select id="tfFilter">
+            <option value="">All</option>
+            <option value="15min">15min</option>
+            <option value="30min">30min</option>
+            <option value="60min">60min</option>
+            <option value="1day">1D</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="sideFilter">Side</label>
+          <select id="sideFilter">
+            <option value="">All</option>
+            <option value="Long">Long</option>
+            <option value="Short">Short</option>
+          </select>
+        </div>
+        <div class="filter-field">
+          <label for="sizeFilter">Size</label>
+          <select id="sizeFilter">
+            <option value="">All</option>
+            <option value="Large">Large</option>
+            <option value="Medium">Medium</option>
+          </select>
+        </div>
+
+        <div class="filter-field color-filter">
+          <label for="tickerColorFilter">Ticker Color</label>
+          <select id="tickerColorFilter">
+            <option value="">All Colors</option>
+            <option value="all">AllTF #FFA500</option>
+            <option value="three">AnyThreeTF #db3dd6</option>
+            <option value="two">AnyTwoTF #FDE37C</option>
+          </select>
+        </div>
+        <div class="filter-field numeric-filter">
+          <label for="scoreFilter">Score</label>
+          <input id="scoreFilter" type="text" placeholder=">=70, > 80, <50">
+        </div>
+        <div class="filter-field numeric-filter">
+          <label for="relVolFilter">RelVol20</label>
+          <input id="relVolFilter" type="text" placeholder=">=2, > 3, <=1.5">
+        </div>
+        <button id="clearFiltersBtn" type="button" class="secondary-btn">Clear Filters</button>
+      </div>
+
+      <div class="table-wrap">
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th>Ticker</th>
+              <th>TF</th>
+              <th>Side</th>
+              <th>Size</th>
+              <th>Score</th>
+              <th>Percentile</th>
+              <th>RelVol20</th>
+              <th>Price</th>
+              <th>Volume</th>
+              <th>Time Since</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td colspan="10" class="empty">No results yet.</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ticker-legend" aria-label="Ticker color legend">
+        <span class="legend-title">Ticker color legend:</span>
+        <span><i class="legend-dot all-tf"></i> Appears on all TF</span>
+        <span><i class="legend-dot three-tf"></i> Appears on any 3 different TF</span>
+        <span><i class="legend-dot two-tf"></i> Appears on any 2 different TF</span>
+      </div>
+    </section>
+  </main>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
